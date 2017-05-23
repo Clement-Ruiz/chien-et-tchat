@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Local Login</h3>
+      <form method="post" id="loginForm">
+        <div class="form-group">
+          <label for="email">Email :</label>
+          <input type="email" id="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de Passe :</label>
+          <input type="password" id="password" class="form-control">
+        </div>
+        <button class="btn btn-default" type="submit">S'authentifier !</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#loginForm').on('submit', function(e) {
+    e.preventDefault();
+
+    var identifier = $('#email').val();
+    var password = $('#password').val();
+
+    if(identifier === '' || password === '') {
+        alert('Les champs doivent êtres remplis');
+    } else {
+      $.ajax({
+        url: "/auth/local",
+        type: "post",
+        data: {
+          identifier: identifier,
+          password: password
+        },
+        success: function(user) {
+          window.location.replace("/user/"+user.id);
+        },
+        error: function(err){
+          alert('Couple Email/Password incorrect !');
+          console.log(err);
+          $('#password').val()='';
+        }
+      });
+    }
+  });
+});
+
+</script>
