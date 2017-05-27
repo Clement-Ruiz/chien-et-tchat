@@ -41,6 +41,18 @@ module.exports.routes = {
       layout: 'layout'
     }
   },
+  'get /signup': {
+    view: 'public/signup',
+    locals: {
+      layout: 'layout'
+    }
+  },
+  'post /signup': {
+    controller: 'UserController',
+    action: 'signup'
+  },
+
+
 
   /***************************************************************************
   *                                                                          *
