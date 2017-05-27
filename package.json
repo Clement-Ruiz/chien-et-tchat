@@ -1,8 +1,8 @@
 {
-  "name": "sails-permissions-template",
+  "name": "chien-et-tchat",
   "private": true,
   "version": "0.0.0",
-  "description": "a template of Sails application using sails-permissions module for authentication",
+  "description": "Projet Etudiant Node JS Clément RUIZ Ingésup B2",
   "keywords": [],
   "dependencies": {
     "ejs": "2.3.4",
@@ -33,8 +33,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Clement-Ruiz/sails-permissions-template.git"
+    "url": "git://github.com/Clement-Ruiz/chien-et-tchat.git"
   },
-  "author": "papy",
+  "author": "Clément Ruiz",
   "license": ""
 }
