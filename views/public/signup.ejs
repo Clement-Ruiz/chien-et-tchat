@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Local Signup</h3>
+      <form method="post" id="loginForm">
+        <div class="form-group">
+          <label for="username">Pseudo (chiffres et lettres uniquement) :</label>
+          <input type="text" id="username" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="email">Email :</label>
+          <input type="email" id="email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="password">Mot de Passe :</label>
+          <input type="password" id="password" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="confirm">Confirmation du Mot de Passe :</label>
+          <input type="password" id="confirm" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="firstName">Prénom (optionnel) :</label>
+          <input type="text" id="firstName" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Nom de Famille (optionnel) :</label>
+          <input type="text" id="lastName" class="form-control">
+        </div>
+        <button class="btn btn-default" type="submit">S'inscrire !</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#loginForm').on('submit', function(e) {
+    e.preventDefault();
+
+    var username = $('#username').val();
+    var password = $('#password').val();
+    var email = $('#email').val();
+    var confirm = $('#confirm').val();
+    var firstName = $('#firstName').val();
+    var lastName = $('#lastName').val();
+
+    if(username === '' || password === '' || confirm = '' || email === '') {
+        alert('Les champs doivent êtres remplis (pseudo / email / password / confirmation)');
+    } else if (password != confirm){
+
+    }
+    else{
+      $.ajax({
+        url: "/auth/local",
+        type: "post",
+        data: {
+          username : username,
+          password: password,
+          confirm : confirm,
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+        },
+        success: function(user) {
+          window.location.replace("/user/"+user.id);
+        },
+        error: function(err){
+          alert('Couple Email/Password incorrect !');
+          console.log(err);
+          $('#password').val()='';
+          $('#confirm').val()='';
+        }
+      });
+    }
+  });
+});
+
+</script>
