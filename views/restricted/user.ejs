@@ -16,11 +16,11 @@
       <form method="post" id="updateUserForm">
         <div class="form-group">
           <label for="lastname">Nom :</label>
-          <input type="text" id="lastname" class="form-control" value=<%- user.lastName %> >
+          <input type="text" id="lastname" class="form-control" value="<%- user.lastName %>" >
         </div>
         <div class="form-group">
           <label for="firstname">Prénom :</label>
-          <input type="text" id="firstname" class="form-control" value=<%- user.firstName %> >
+          <input type="text" id="firstname" class="form-control" value="<%- user.firstName %>" >
         </div>
         <button type="submit" class="btn btn-default">Mettre à jour les infos</button>
       </form>
@@ -33,26 +33,24 @@ $(document).ready(function(){
   $('#updateUserForm').on('submit', function(e) {
     e.preventDefault();
 
-    var pseudo = $('pseudo').val();
-    var lastName = $('username').val();
-    var firstName = $('#email').val();
-
-    if(pseudo === '' || mail === '') {
-        alert('Les champs doivent êtres remplis');
-    } else {
+    var lastName = $('#lastname').val();
+    var firstName = $('#firstname').val();
+    var data = {};
+    if(lastName){ data.lastName = lastName}
+    if(firstName){ data.firstName = firstName}
+    console.log(data);
+    if(!jQuery.isEmptyObject(data)){
+      console.log('ajax');
       $.ajax({
+        url: "/user/<%- user.username%>",
         type: "post",
-        data: {
-          firstName: firstName,
-          lastName: lastName,
-        },
-        success: function(user) {
-          window.location.replace("/user/"+user.username);
+        data: data,
+        success: function() {
+          alert('Vos données ont été mises à jours !')
         },
         error: function(err){
-          alert('Couple Email/Password incorrect !');
+          alert('Oops : Quelque chose s\'est mal passé');
           console.log(err);
-          $('#password').val()='';
         }
       });
     }
