@@ -31,5 +31,6 @@ module.exports.models = {
   autoPK: true,             // add automatically a primary key to every model
   autoCreatedAt: true,      // add automatically a "Created At" column to every model
   autoUpdatedAt: true,      // add automatically a "Updated At" column to every model.
+  autoCreatedBy: true,      // add automatically a "Created By" attribute to every model.
 
 };
