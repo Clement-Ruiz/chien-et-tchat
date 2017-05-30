@@ -49,7 +49,7 @@ module.exports.policies = {
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
 
-    '\*': [
+  '\*': [
     'basicAuth',
     'passport',
     'sessionAuth',
@@ -63,5 +63,10 @@ module.exports.policies = {
 
   AuthController: {
     '*': [ 'passport' ]
+  },
+
+  UserController: {
+    homepage : [],
+    create: []
   }
 };

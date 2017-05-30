@@ -33,7 +33,8 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'homepage'
+    controller: 'UserController',
+    action: "homepage"
   },
   '/login': {
     view: 'public/login',
@@ -50,10 +51,6 @@ module.exports.routes = {
     locals: {
       layout: 'layout'
     }
-  },
-  'post /signup': {
-    controller: 'UserController',
-    action: 'signup'
   },
 
 
@@ -72,9 +69,13 @@ module.exports.routes = {
     controller: 'UserController',
     action: 'profile'
   },
-  'get /user/:id': {
+  'get /user/:name': {
     controller: 'UserController',
     action: 'profile'
   },
+  'post /user/:name': {
+    controller: 'UserController',
+    action: 'update'
+  }
 
 };
