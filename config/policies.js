@@ -66,7 +66,7 @@ module.exports.policies = {
   },
 
   UserController: {
-    homepage : [],
-    create: []
+    homepage : true,
+    create: true
   }
 };
