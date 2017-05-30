@@ -41,6 +41,10 @@ module.exports.routes = {
       layout: 'layout'
     }
   },
+  '/logout': {
+    controller: 'AuthController',
+    action: 'logout'
+  },
   'get /signup': {
     view: 'public/signup',
     locals: {
