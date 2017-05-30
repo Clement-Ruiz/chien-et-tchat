@@ -10,7 +10,9 @@ _.merge(exports, {
   homepage: function(req, res){
     var auth=req.session.authenticated || false;
     var username='';
-    if(req.user){ username = req.user.username }
+    if(req.user){
+      username = req.user.username;
+     }
     return res.view("homepage", {
       auth: auth,
       user: username
@@ -35,5 +37,31 @@ _.merge(exports, {
         });
       }
     });
+  },
+  update: function(req, res){
+    var username = req.user.username;
+    var data = {};
+    if(req.param('firstName')){ data.firstName = req.param('firstName') }
+    if(req.param('lastName')){ data.lastName = req.param('lastName') }
+    if(!_.isEmpty(data) && username){
+      User.update({username: username }, data).exec(function(err, user){
+        if(err){
+          sails.log.error('Error while updating User');
+          sails.log.error(err);
+          return res.negotiate(err);
+        }
+        if(!user){
+          sails.log.error('Error while updating User');
+          sails.log.error(err);
+          return res.redirect('/user');
+        }
+        else {
+          return res.ok(user);
+        }
+      });
+    }
+    else{
+      res.redirect('/user');
+    }
   },
 });
