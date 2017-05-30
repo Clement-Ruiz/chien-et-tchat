@@ -1,10 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <h3>Local Signup</h3>
-      <form method="post" id="loginForm">
+    <div class="col-md-6 col-md-offset-2 main-container">
+      <div class="page-header">
+        <h3>Singup</h3>
+      </div>
+      <form id="signupform">
         <div class="form-group">
-          <label for="username">Pseudo (chiffres et lettres uniquement) :</label>
+          <label for="username">Pseudo :</label>
           <input type="text" id="username" class="form-control">
         </div>
         <div class="form-group">
@@ -35,7 +37,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-  $('#loginForm').on('submit', function(e) {
+  $('#signupform').on('submit', function(e) {
     e.preventDefault();
 
     var username = $('#username').val();
@@ -45,29 +47,52 @@ $(document).ready(function(){
     var firstName = $('#firstName').val();
     var lastName = $('#lastName').val();
 
-    if(username === '' || password === '' || confirm = '' || email === '') {
-        alert('Les champs doivent êtres remplis (pseudo / email / password / confirmation)');
+    if(username === '' || password === '' || confirm === '' || email === '') {
+      alert('Les champs doivent êtres remplis (pseudo / email / password / confirmation)');
     } else if (password != confirm){
-
+      alert('Les mots de passes sont différents !');
     }
-    else{
+    else if (password.length < 8){
+      alert('Votre mot de passe doit comporter au minimum 8 caractères');
+    } else{
+      $('.main-container').remove('.alert');
       $.ajax({
-        url: "/auth/local",
+        url: "/register",
         type: "post",
         data: {
           username : username,
           password: password,
-          confirm : confirm,
           email: email,
           firstName: firstName,
-          lastName: lastName,
+          lastName: lastName
         },
         success: function(user) {
-          window.location.replace("/user/"+user.id);
+          alert("Votre utilisateur a bien été créé ! Vous allez être redirigés...");
+          $.ajax({
+            url: "/auth/local",
+            type: "post",
+            data: {
+              identifier: email,
+              password: password
+            },
+            success: function(){
+              window.location.replace("/user");
+            },
+            error: function(){
+              window.location.replace("/login");
+            }
+          })
         },
         error: function(err){
-          alert('Couple Email/Password incorrect !');
           console.log(err);
+          if (err.responseJSON.invalidAttributes) {
+            $('.page-header').append('<div class="alert alert-danger">');
+            $('.alert-danger').append('La création de l\'utilisateur a échoué. Vérifiez :');
+            $('.alert-danger').append('<ul>');
+            $('.alert-danger').append('<li>Que votre utilisateur ou mail n\'est pas déjà utilisé</li>');
+            $('.alert-danger').append('<li>Que votre mot de passe fait au moins 8 caractères</li></ul>');
+            $('.page-header').append('</div>');
+          }
           $('#password').val()='';
           $('#confirm').val()='';
         }

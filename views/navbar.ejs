@@ -17,12 +17,19 @@
     <div class="collapse navbar-collapse" id="menu">
       <ul class="nav navbar-nav">
         <li <% if (req.path === '/general') { %>class="active" <% } %> >
-          <a href="/general">General Chat</a>
+          <a href="/general">Chat Général</a>
         </li>
         <li <% if (req.path === '/user') { %>class="active" <% } %> >
-          <a href="/user">Profile</a>
+          <a href="/user">Profil</a>
         </li>
       </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if (req.session.authenticated) { %>
+          <li><a href="/logout">Deconnexion</a></li>
+        <% } else { %>
+          <li><a href="/login">S'authentifier</a></li>
+          <li><a href="/signup">S'inscrire</a></li>
+        <% } %>
     </div>
   </div>
 </nav>
