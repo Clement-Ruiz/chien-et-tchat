@@ -6,8 +6,8 @@
       </div>
       <form id="loginForm">
         <div class="form-group">
-          <label for="email">Email :</label>
-          <input type="email" id="email" class="form-control">
+          <label for="identifier">Pseudo ou Email:</label>
+          <input type="email" id="identifier" class="form-control">
         </div>
         <div class="form-group">
           <label for="password">Mot de Passe :</label>
@@ -24,7 +24,7 @@ $(document).ready(function(){
   $('#loginForm').on('submit', function(e) {
     e.preventDefault();
 
-    var identifier = $('#email').val();
+    var identifier = $('#identifier').val();
     var password = $('#password').val();
 
     if(identifier === '' || password === '') {
