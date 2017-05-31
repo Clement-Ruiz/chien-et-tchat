@@ -1,0 +1,90 @@
+<%- partial('../navbar.ejs') %>
+<div class="container ">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-2 main-container">
+      <div class="page-header">
+        <h3>Chat</h3>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title"><%- title || "Général" %></h4>
+        </div>
+        <div class="panel-body">
+          <div class="container-fluid" id="message-box">
+          </div>
+        </div>
+        <div class="panel-footer">
+          <div class="input-group">
+            <span class="input-group-addon" id="username"><%- username %></span>
+            <input type="text" class="form-control" placeholder="Type your message here" id="message">
+            <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button" id="send">Envoyer</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  var postMessage = function(){
+    var content= $('#message').val();
+    var author= "<%- userid %>";
+    io.socket.post('/chat', { author: author, content: content}, function(data, jwres){
+      if(jwres.statusCode !== 200){
+        alert('something went wrong !');
+      }
+      else{
+        $('#message').val('');
+        scrollDown();
+      }
+    });
+  };
+
+  var writeMessage = function(message){
+    var body = $('#message-box');
+    var content='<div class="row">';
+    if(message.author.username === "<%- username %>"){content += '<div class="col-md-8 mymessage">';}
+    else{ content += '<div class="col-md-8 pull-right message">'; }
+    content += '<label><strong>'+message.author.username+' :</label></strong>';
+    content += '<p>'+message.content+'</p>';
+    content += '</div></div>';
+    body.append(content);
+    scrollDown();
+  };
+
+  // Automatically set chat to bottom
+  var scrollDown = function(){
+    var objDiv = document.getElementById("message-box");
+    objDiv.scrollTop = objDiv.scrollHeight;
+  };
+
+
+  //Getting old messages
+  io.socket.get('/messages', function(messages){
+    messages.reverse().forEach(function(message){
+      writeMessage(message);
+    });
+    scrollDown();
+  });
+  // Start Listening
+  io.socket.on('message', function(data){
+    writeMessage(data.data);
+    scrollDown();
+  });
+
+  // Event Listeners
+  $('#send').click( function(){
+    postMessage()
+  });
+  $(document).keypress(function(e) {
+    // Detect "Enter" keypress
+    if(e.which == 13) { postMessage(); }
+  });
+});
+</script>
