@@ -64,7 +64,7 @@ module.exports.policies = {
   AuthController: {
     '*': [ 'passport' ]
   },
-
+  //MessageController: true,
   UserController: {
     homepage : true,
     create: true
