@@ -13,6 +13,6 @@ _.merge(exports, {
     },
     lastName: {
       type: 'string',
-    }
+    } 
   }
 });

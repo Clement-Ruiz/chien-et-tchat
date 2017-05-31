@@ -9,14 +9,7 @@ _.merge(exports, {
   // Extend with custom logic here by adding additional fields, methods, etc.
   homepage: function(req, res){
     var auth=req.session.authenticated || false;
-    var username='';
-    if(req.user){
-      username = req.user.username;
-     }
-    return res.view("homepage", {
-      auth: auth,
-      user: username
-    });
+    return res.view("homepage", { auth: auth });
   },
   // Return the view of user's profile.
   profile: function(req, res){
