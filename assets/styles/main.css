@@ -13,9 +13,26 @@ body{
   padding: 25px;
   padding-top: 0;
 }
+.message{
+  border-radius: 5px;
+  padding: 0 10px 0 10px;
+  margin: 10px 0 10px 0;
+  background-color: #7EB4BF;
+}
+.mymessage{
+  border-radius: 5px;
+  padding: 0 10px 0 10px;
+  margin: 10px 0 10px 0;
+  background-color: #96FF98;
+}
 
 
 /* IDS   */
 #brand-image{
   padding: 9px 9px;
+}
+#message-box{
+  max-height: 600px;
+  min-height: 200px;
+  overflow-y: auto;
 }
