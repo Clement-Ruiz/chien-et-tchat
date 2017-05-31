@@ -7,12 +7,13 @@
       <form id="loginForm">
         <div class="form-group">
           <label for="identifier">Pseudo ou Email:</label>
-          <input type="email" id="identifier" class="form-control">
+          <input type="text" id="identifier" class="form-control">
         </div>
         <div class="form-group">
           <label for="password">Mot de Passe :</label>
           <input type="password" id="password" class="form-control">
         </div>
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
         <button class="btn btn-default" type="submit">S'authentifier !</button>
       </form>
     </div>
@@ -41,7 +42,7 @@ $(document).ready(function(){
           window.location.replace("/user");
         },
         error: function(err){
-          alert('Couple Email/Password incorrect !');
+          alert('Couple Login/Password incorrect !');
           console.log(err);
           $('#password').val()='';
         }

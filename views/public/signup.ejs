@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-2 main-container">
       <div class="page-header">
-        <h3>Singup</h3>
+        <h3>Signup</h3>
       </div>
       <form id="signupform">
         <div class="form-group">
@@ -29,6 +29,7 @@
           <label for="lastName">Nom de Famille (optionnel) :</label>
           <input type="text" id="lastName" class="form-control">
         </div>
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
         <button class="btn btn-default" type="submit">S'inscrire !</button>
       </form>
     </div>
