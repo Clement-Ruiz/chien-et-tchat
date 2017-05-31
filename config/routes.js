@@ -53,7 +53,10 @@ module.exports.routes = {
     }
   },
 
-
+  'get /whoami': {
+    controller: 'UserController',
+    action: 'me'
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -76,6 +79,18 @@ module.exports.routes = {
   'post /user/:name': {
     controller: 'UserController',
     action: 'update'
-  }
+  },
 
+  'get /chat': {
+    controller: 'MessageController',
+    action: "get"
+  },
+  'get /messages': {
+    controller: 'MessageController',
+    action: 'getAll'
+  },
+  'post /chat': {
+    controller: 'MessageController',
+    action: 'post',
+  }
 };
