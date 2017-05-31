@@ -17,7 +17,7 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-
+  connection: 'mongodbServer',
   /***************************************************************************
   *                                                                          *
   * How and whether Sails will attempt to automatically rebuild the          *
@@ -26,7 +26,7 @@ module.exports.models = {
   * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
-  migrate: 'drop',
+  migrate: 'alter',
 
   autoPK: true,             // add automatically a primary key to every model
   autoCreatedAt: true,      // add automatically a "Created At" column to every model
